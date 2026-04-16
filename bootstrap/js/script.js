@@ -1,26 +1,30 @@
+// BOTONES DE LAS CARDS PARA ABRIR LA MODAL
+let botones = document.querySelectorAll(".btn-modal");
+  botones.forEach(boton => {
+  boton.addEventListener("click", function(){
+    let modal = new bootstrap.Modal(document.getElementById("miModal"));
+    modal.show();
 
-function mostrarAlerta(texto, tipo) {
-  document.getElementById("zonaAlerta").innerHTML =
-    '<div class="alert alert-' + tipo + ' alert-dismissible fade show">' +
-      texto +
-      '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-    '</div>';
-}
+  });
 
+});
 
-function iniciarSesion() {
-  var correo = document.getElementById("correo").value;
-  var clave  = document.getElementById("clave").value;
-  var alerta = document.getElementById("alertaLogin");
-
-  if (correo === "" || clave === "") {
-    alerta.innerHTML = '<div class="alert alert-danger">Completa todos los campos.</div>';
-    return;
+//VALIDACION DEL FORMULARIO
+document.getElementById("login").addEventListener("submit",function(e){
+  e.preventDefault();
+  let correo = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let mensaje = document.getElementById("mensaje");
+  const USER_DEFAULT="prueba@gmail.com";
+  const PASSWORD_DEFAULT="123456";
+  if (correo === "" || password === ""){
+    mensaje.innerHTML = "TODOS LOS CAMPOS SON OBLIGATORIOS";
+    mensaje.className = "text-warning";
+  }else if (correo == USER_DEFAULT && password == PASSWORD_DEFAULT ){
+    mensaje.innerHTML=" Bienvenido al sistema";
+    mensaje.className = "text-succes"
+  }else{
+    mensaje.innerHTML=" Erros al procesar los datos";
+    mensaje.className= "text-danger";
   }
-
-  if (correo === "demo@correo.com" && clave === "123456") {
-    alerta.innerHTML = '<div class="alert alert-success">¡Sesión iniciada correctamente! 👋</div>';
-  } else {
-    alerta.innerHTML = '<div class="alert alert-danger">Correo o contraseña incorrectos.</div>';
-  }
-}
+});
